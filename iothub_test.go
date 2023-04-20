@@ -19,7 +19,7 @@ func TestUsername(t *testing.T) {
 }
 
 func TestCommandTopic(t *testing.T) {
-	want := "/devices/foo/messages/devicebound/#"
+	want := "devices/foo/messages/devicebound/#"
 	got := device.CommandTopic()
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
@@ -27,7 +27,7 @@ func TestCommandTopic(t *testing.T) {
 }
 
 func TestTelemetryTopic(t *testing.T) {
-	want := "/devices/foo/messages/events"
+	want := "devices/foo/messages/events/"
 	got := device.TelemetryTopic()
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)

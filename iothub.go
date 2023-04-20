@@ -142,11 +142,11 @@ func (d *Device) Username() string {
 // CommandTopic returns the MQTT topic to which the device can subscribe to get commands.
 // For more information see https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#receiving-cloud-to-device-messages.
 func (d *Device) CommandTopic() string {
-	return fmt.Sprintf("/devices/%v/messages/devicebound/#", d.DeviceID)
+	return fmt.Sprintf("devices/%v/messages/devicebound/#", d.DeviceID)
 }
 
 // TelemetryTopic returns the MQTT topic to which the device should publish telemetry events.
 // For more information see https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#sending-device-to-cloud-messages.
 func (d *Device) TelemetryTopic() string {
-	return fmt.Sprintf("/devices/%v/messages/events", d.DeviceID)
+	return fmt.Sprintf("devices/%v/messages/events/", d.DeviceID)
 }
