@@ -56,9 +56,8 @@ type Device struct {
 //
 //   - Client ID
 //   - Username
-//   - TLS configuration
+//   - TLS configuration that supplies root CA certs and the device's cert
 //   - Broker
-//   - TLS config that supplies root CA certs and the device's cert
 //
 // By passing in options you may customize the ClientOptions. Options are functions with this signature:
 //
