@@ -10,14 +10,6 @@ var device = Device{
 	PrivKeyPath: "key.pem",
 }
 
-func TestClientID(t *testing.T) {
-	want := device.DeviceID
-	got := device.ClientID()
-	if got != want {
-		t.Errorf("got %q, want %q", got, want)
-	}
-}
-
 func TestUsername(t *testing.T) {
 	want := "myhub.azure-devices.net/foo"
 	got := device.Username()

@@ -106,7 +106,9 @@ func (d *Device) NewClient(caCerts io.Reader, options ...func(*Device, *mqtt.Cli
 	// See https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#tlsssl-configuration
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(broker.URL())
-	opts.SetClientID(d.ClientID())
+	// IoT Hub expects the device ID as the client ID.
+	// See https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#using-the-mqtt-protocol-directly-as-a-device
+	opts.SetClientID(d.DeviceID)
 	opts.SetUsername(d.Username())
 	opts.SetTLSConfig(tlsConf)
 
@@ -124,12 +126,6 @@ func (d *Device) Broker() MQTTBroker {
 		Host: fmt.Sprintf("%s.%s", d.HubName, azureDevicesEndpoint),
 		Port: 8883,
 	}
-}
-
-// ClientID returns the device ID, since that is what IoT Hub requires.
-// See https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#using-the-mqtt-protocol-directly-as-a-device
-func (d *Device) ClientID() string {
-	return d.DeviceID
 }
 
 // Username returns a username formatted as required by IoT Hub.
