@@ -132,6 +132,7 @@ func (d *Device) ClientID() string {
 	return d.DeviceID
 }
 
+// Username returns a username formatted as required by IoT Hub.
 func (d *Device) Username() string {
 	// The IoT Hub documentation recommends including an API version in the username, like this:
 	// "{iotHub-hostname}/{device-id}/?api-version=2021-04-12". However I found that including it (and trying
