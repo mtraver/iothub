@@ -16,6 +16,9 @@ func Example() {
 		PrivKeyPath: "my-device.pem",
 	}
 
+	// roots.pem should contain the root CA certs listed here:
+	// https://learn.microsoft.com/en-us/azure/security/fundamentals/azure-ca-details
+	// Most importantly, as of Feb 2023, it should contain the DigiCert Global Root G2 cert.
 	certs, err := os.Open("roots.pem")
 	if err != nil {
 		log.Fatalf("Failed to open certs file: %v", err)
