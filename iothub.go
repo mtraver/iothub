@@ -128,6 +128,10 @@ func (d *Device) Broker() MQTTBroker {
 	}
 }
 
+func (d *Device) ID() string {
+	return d.DeviceID
+}
+
 // Username returns a username formatted as required by IoT Hub.
 func (d *Device) Username() string {
 	// The IoT Hub documentation recommends including an API version in the username, like this:
