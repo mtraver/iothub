@@ -9,7 +9,6 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 
@@ -44,8 +43,10 @@ func DeviceIDFromCert(certPath string) (string, error) {
 
 // Device represents an IoT Hub device.
 type Device struct {
-	HubName     string `json:"hub_name"`
-	DeviceID    string `json:"device_id"`
+	HubName  string `json:"hub_name"`
+	DeviceID string `json:"device_id"`
+	// CACerts must contain the path to a .pem file containing Azure's trusted root certs. See the README for more info.
+	CACerts     string `json:"ca_certs_path"`
 	CertPath    string `json:"cert_path"`
 	PrivKeyPath string `json:"priv_key_path"`
 }
@@ -77,9 +78,9 @@ type Device struct {
 // connection — without loss of customizability.
 //
 // For more information about connecting to Azure IoT Hub's MQTT brokers see https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#tlsssl-configuration.
-func (d *Device) NewClient(caCerts io.Reader, options ...func(*Device, *mqtt.ClientOptions) error) (mqtt.Client, error) {
+func (d *Device) NewClient(options ...func(*Device, *mqtt.ClientOptions) error) (mqtt.Client, error) {
 	// Load CA certs.
-	pemCerts, err := ioutil.ReadAll(caCerts)
+	pemCerts, err := os.ReadFile(d.CACerts)
 	if err != nil {
 		return nil, fmt.Errorf("iothub: failed to read CA certs: %v", err)
 	}
